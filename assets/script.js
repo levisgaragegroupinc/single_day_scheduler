@@ -1,29 +1,15 @@
-// Current date and time. Use moment.js
-    //declcare the moment function
-    //$ with ID filled in for current day + .format. We need the current day, time is not specified.
+// Current date and time. Use moment.js.
 var currentDateTime = moment();
-// $("#currentDay").text(moment().format("dddd MMMM Do"));
 $('#currentDay').text(currentDateTime.format('dddd MMM Do'));
 
-// sets the hour to now, without seconds or minutes.
+// Sets the hour to now, without seconds or minutes.
 var currentHour = moment().startOf('hour');
-// currentHour = currentHour.startOf('hour');
 console.log(currentHour);
 // sets the start of the day at 8AM.
 var startHour = currentHour.startOf('day').add(7, 'hours');
 console.log(startHour);
 
-// $("#currentDay").text(currentDateTime.format("MMM Do, YYYY h:mm:ss a"));
-
-// Time blocks. Label each hour
-
-// Create a for loop to handle this code
-
-// var hour1 = startHour.add(0, 'h');
-// $('.hour8').text(hour1.format('h A'));
-// console.log(hour1);
-
-// for loop to replace code below
+// Time blocks. Label each hour.
 for (let hour = 8; hour < 18; ++hour) {
 startHour = startHour.add(1, 'h');
 var inputClass = '.hour';
@@ -33,6 +19,7 @@ $(inputClass).text(startHour.format('h A'));
 console.log(inputClass);
 }; 
 
+// Style timeblock based on current hour.
 function styleTimeBlock() {
     var militaryTime = moment().format('HH');
     // 8am
@@ -175,110 +162,19 @@ function styleTimeBlock() {
             inputNumber = '.input' + num;
             $(inputNumber).addClass('future');
     }    
-
 };  
-
+// Call timeblock styling function.
 styleTimeBlock();
-
-// function styleTimeBlock() {
-//     var militaryTime = moment().format('HH');
-//     console.log(militaryTime);
-//     if (militaryTime === 8) {
-//         console.log('It is 8-O-Clock');
-//         $('.input-8am').addClass('.present');
-//         $('.input-9am').addClass('.future');
-//         $('.input-10am').addClass('.future');
-//         $('.input-11am').addClass('.future');
-//         $('.input-12am').addClass('.future');
-//         $('.input-1pm').addClass('.future');
-//         $('.input-2pm').addClass('.future');
-//         $('.input-3pm').addClass('.future');
-//         $('.input-4pm').addClass('.future');
-//         $('.input-5pm').addClass('.future');
-//     } else {
-//         console.log('It is not 8 O Clock');
-//     }
-
-// }
-
-
-
-//If current time
-//isAfter
-//isBefore
-//isSame
-//8
-
-// $('.future').addClass('.present').removeClass('.future');
-// $('.input-8am').addClass('.present');
-// $('.input-9am').addClass('.future');
-// $('.input-9am').addClass('.future');
-// $('.input-9am').addClass('.future');
-// $('.input-9am').addClass('.future');
-// $('.input-9am').addClass('.future');
-// $('.input-9am').addClass('.future');
-// $('.input-9am').addClass('.future');
-
-//default class future
-// var styleBlock = getElementById('.future');
-// $('.future').addClass('.present').removeClass('.future');
-
-// for (let hour = 8; )
-
-
-// HH is 24 hour format
-//TOTAL of 10 slots
-// 8 
-// 9
-// 10
-// 11
-// 12
-// 1 13
-// 2 14
-// 3 15
-// 4 16
-// 5 17
-// 6 18
-
-
-
-
-
-// Classes to style the color
-// .past
-// .present
-// .future
-
-
-// Populate html with the label for each hour
-
-// Function to compare the current time with each time slot and update the background color.
-
-// Call the function above to run it.
-
-
-
-
-
-
-
-
-// Acceptance Criteria
-
-// GIVEN I am using a daily planner to create a schedule
-    // WHEN I open the planner
-        // THEN the current day is displayed at the top of the calendar
-    // WHEN I scroll down
-        // THEN I am presented with timeblocks for standard business hours
-        // COMMENT: Add time blocks in the HTML for standard business hours. So 8AM to 5PM should suffice. 
-    // WHEN I view the timeblocks for that day
-        // THEN each timeblock is color coded to indicate whether it is in the past, present, or future
-        // COMMENT: Will probably need to use data types or similar to accomplish this.
-    // WHEN I click into a timeblock
-        // THEN I can enter an event
-        // COMMENT: Need event listener for text field.
-    // WHEN I click the save button for that timeblock
-        // THEN the text for that event is saved in local storage
-        // Need event listener for save button, and function to store input into local storage.
-    // WHEN I refresh the page
-        // THEN the saved events persists
+// Retrieve to do items from local storage.
+var hourlyToDo = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
+for (var i = 0; i < hourlyToDo.length; i++) {
+    var ToDoItem = localStorage.getItem(hourlyToDo[i]);
+    $('.input' + hourlyToDo[i]).val(ToDoItem);
+}
+// Save to do item to local storage.
+$('.saveBtn').click(function(event){
+    event.preventDefault();
+    var inputText = $(this).siblings('.form-control').val();
+    var ToDoItem = $(this).parent().data('hour');
+    localStorage.setItem(ToDoItem, inputText);
+});
