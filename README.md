@@ -22,7 +22,7 @@ At the top of the page the current date is shown. As time progresses over the co
 
 ## View the project
 
-Navigate to [single_day_scheduler](https://levisgaragegroupinc.github.io/single_day_Scheduler/) to view the live page. 
+Navigate to [single_day_scheduler](https://levisgaragegroupinc.github.io/single_day_scheduler/) to view the live page. 
 
 ## Credits
 
